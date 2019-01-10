@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t petarprlina/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run petarprlina/react-test npm test -- --coverage
+
+
+after_success:
+  - docker build -t petarprlina/multi-clinet ./client
+  - docker build -t petarprlina/multi-nginx ./nginx
+  - docker build -t petarprlina/multi-server ./server
+  - docker build -t petarprlina/multi-worker ./worker
+  
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push petarprlina/multi-client
+  - docker push petarprlina/multi-nginx
+  - docker push petarprlina/multi-server
+  - docker push petarprlina/multi-worker
