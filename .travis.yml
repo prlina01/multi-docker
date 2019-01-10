@@ -5,6 +5,7 @@ services:
 before_install:
   - docker build -t petarprlina/react-test -f ./client/Dockerfile.dev ./client
 
+
 script:
   - docker run petarprlina/react-test npm test -- --coverage
 
