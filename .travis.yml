@@ -11,7 +11,7 @@ script:
 
 
 after_success:
-  - docker build -t petarprlina/multi-clinet ./client
+  - docker build -t petarprlina/multi-client ./client
   - docker build -t petarprlina/multi-nginx ./nginx
   - docker build -t petarprlina/multi-server ./server
   - docker build -t petarprlina/multi-worker ./worker
