@@ -22,3 +22,16 @@ after_success:
   - docker push petarprlina/multi-nginx
   - docker push petarprlina/multi-server
   - docker push petarprlina/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  enviroment: MultiDockere-env
+  bucket_name: elasticbeanstalk-us-east-2-482783259395
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
